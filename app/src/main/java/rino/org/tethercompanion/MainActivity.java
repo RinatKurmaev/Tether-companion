@@ -1,6 +1,12 @@
 package rino.org.tethercompanion;
 
-
+/*
+ * This is the source code of Thether companion for Android v. 3.x.x.
+ * It is licensed under GNU GPL v. 2 or later.
+ * You should have received a copy of the license in this archive (see LICENSE).
+ *
+ * Copyright Rinat Kurmaev, 2015-2016.
+ */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     state = false;
                     stopService(WssIntent);
-                    //ws.stop();
                     hint.setText("Disabled");
                 }
             }
