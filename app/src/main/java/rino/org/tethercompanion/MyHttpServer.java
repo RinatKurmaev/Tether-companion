@@ -32,9 +32,6 @@ public class MyHttpServer extends NanoHTTPD {
         @Override
         public void onReceive(Context ctxt, Intent intent) {
             batteryLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            Log.d("battery level", String.valueOf(batteryLevel));
-            //prevBattLevelChange = currentBattLevelChange;
-            //currentBattLevelChange = System.currentTimeMillis();
         }
     };
 
@@ -58,6 +55,15 @@ public class MyHttpServer extends NanoHTTPD {
         answer += "<H2>Battery level :" + batteryLevel + "% </H2>";
         answer += "<H2>Network type :" +String.valueOf(connManger.SubType(context)) + "</H2>";
         answer += "<H2>IP: " + getWifiApIpAddress() +"</H2>";
+        if (connManger.isConnected(context))
+        {
+            answer +="<H2> Network connected </H2>";
+        }
+        else
+        {
+            answer +="<H2> Network disconnected </H2>";
+        }
+
         return newFixedLengthResponse( answer + "</body></html>\n" );
     }
 

@@ -27,7 +27,6 @@ public class WebServerService extends Service {
     {
         ws = new MyHttpServer(this);
 
-        Log.d("service","onCreate");
     }
 
     @Override
@@ -38,7 +37,6 @@ public class WebServerService extends Service {
             e.printStackTrace();
         }
         makeNotify(ws.getWifiApIpAddress()+":8000", true);
-        Log.d("service", "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -49,7 +47,6 @@ public class WebServerService extends Service {
     {
         ws.stop();
         makeNotify(null, false);
-        Log.d("service","onDestroy");
     }
     @Override
     public IBinder onBind(Intent intent) {
