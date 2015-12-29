@@ -1,8 +1,8 @@
 package rino.org.tethercompanion;
 
 /*
- * This is the source code of Thether companion for Android v. 3.x.x.
- * It is licensed under GNU GPL v. 2 or later.
+ * This is the source code of Tether companion for Android.
+ * It is licensed under GNU GPL v. 3 or later.
  * You should have received a copy of the license in this archive (see LICENSE).
  *
  * Copyright Rinat Kurmaev, 2015-2016.
