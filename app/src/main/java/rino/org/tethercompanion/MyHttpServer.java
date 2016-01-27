@@ -44,26 +44,38 @@ public class MyHttpServer extends NanoHTTPD {
 
     @Override
     public Response serve(IHTTPSession session) {
-        String answer = "<html><body>\n";
+
         context.getApplicationContext().registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         connManger = new Connectivity();
 
         Map<String, String> parms = session.getParms();
 
-        Log.d("params", String.valueOf(parms));
-        answer += "<H1>Welcome to Tether companion</H2>";
-        answer += "<H2>Battery level :" + batteryLevel + "% </H2>";
-        answer += "<H2>Network type :" +String.valueOf(connManger.SubType(context)) + "</H2>";
-        answer += "<H2>IP: " + getWifiApIpAddress() +"</H2>";
+        //Log.d("params", String.valueOf(parms));
+        String answer = "<!DOCTYPE html>\n<html><body>\n<meta charset=\"UTF-8\">";
+        //css
+        //there is still no CSS
+        //end of css
+        answer += "<H1>Welcome to Tether companion</H1>\n";
+        answer +="<p>" + context.getResources().getString(R.string.battery_level) + " :" + batteryLevel + "% </p>\n";
+        answer += "<p>" +  context.getResources().getString(R.string.network_type) +" :" +String.valueOf(connManger.SubType(context)) + "</p>\n";
+        answer += "<p>IP: " + getWifiApIpAddress() +"</p>\n";
         if (connManger.isConnected(context))
         {
-            answer +="<H2> Network connected </H2>";
+            answer +="<p> " +context.getResources().getString(R.string.network_connected) + "</p>\n";
         }
         else
         {
-            answer +="<H2> Network disconnected </H2>";
-        }
+            answer +="<p> " +context.getResources().getString(R.string.network_disconnected) + "</p>\n";
 
+        }
+        if (connManger.isRestricted())
+        {
+            answer +="<p> " +context.getResources().getString(R.string.network_restricted) + "</p>\n";
+        }
+        else
+        {
+            answer +="<p> " +context.getResources().getString(R.string.network_nonrestricted) + "</p>\n";
+        }
         return newFixedLengthResponse( answer + "</body></html>\n" );
     }
 

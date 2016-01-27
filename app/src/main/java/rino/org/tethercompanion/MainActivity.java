@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     boolean state = false;
     TextView hint;
     Intent WssIntent;
-    Menu menu;
-    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 {
                     state = true;
                     startService(WssIntent);
-                    hint.setText("Started on: " + getWifiApIpAddress() + ":8000");
+                    hint.setText(getResources().getString(R.string.started_on) + " " + getWifiApIpAddress() + ":8000");
                 }
                 else
                 {
                     state = false;
                     stopService(WssIntent);
-                    hint.setText("Disabled");
+                    hint.setText(getResources().getString(R.string.disabled));
                 }
             }
         });

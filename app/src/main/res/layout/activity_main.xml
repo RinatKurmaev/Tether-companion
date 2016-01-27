@@ -21,6 +21,6 @@
         android:id="@+id/textViewHint"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Disabled" />
+        android:text="@string/disabled" />
 
 </RelativeLayout>

@@ -12,6 +12,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 /**
  * Check device's network connectivity and speed
  * @author emil http://stackoverflow.com/users/220710/emil
@@ -80,6 +84,33 @@ public class Connectivity {
         return (info != null && info.isConnected() && Connectivity.isConnectionFast(info.getType(),info.getSubtype()));
     }
 
+    public boolean isRestricted() {
+        final String mWalledGardenUrl = "http://clients3.google.com/generate_204";
+        final int WALLED_GARDEN_SOCKET_TIMEOUT_MS = 10000;
+
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(mWalledGardenUrl); // "http://clients3.google.com/generate_204"
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setInstanceFollowRedirects(false);
+            urlConnection.setConnectTimeout(WALLED_GARDEN_SOCKET_TIMEOUT_MS);
+            urlConnection.setReadTimeout(WALLED_GARDEN_SOCKET_TIMEOUT_MS);
+            urlConnection.setUseCaches(false);
+            urlConnection.getInputStream();
+            // We got a valid response, but not from the real google
+            return urlConnection.getResponseCode() != 204;
+        }
+        catch (IOException e)
+        {
+            return true;
+        }
+        finally
+        {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
+    }
     /**
      * Check if the connection is fast
      * @param type
